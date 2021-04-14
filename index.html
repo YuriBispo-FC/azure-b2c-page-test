@@ -149,9 +149,10 @@
     const api_address = "https://94ad8f78acf6.ngrok.io";
     const route = "Paciente/Account/Status";
 
-    console.log(email.val());
-
+    
     $("#password").on("blur", function() {
+      console.log(email.val());
+      
       $.post(api_address + "/" + route, email.val(), function(data) {
         console.log(data);
       })
