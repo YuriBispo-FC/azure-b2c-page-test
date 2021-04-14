@@ -150,9 +150,9 @@
     const route = "Paciente/Account/Status";
 
     
-    $("#password").on("blur", function() {
+    email.on("blur", function() {
       console.log(email.val());
-      
+
       $.post(api_address + "/" + route, email.val(), function(data) {
         console.log(data);
       })
