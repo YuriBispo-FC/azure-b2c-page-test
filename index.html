@@ -143,6 +143,11 @@
 </body>
 <script>
   $().ready(function() {
+    const queryParams = window.location.search.split('&');
+    console.log(queryParams);
+  });
+
+  function startPatientFlow() {
     hideControls();
 
     const email = $("#signInName");
@@ -153,7 +158,7 @@
     const errorMsgElement = document.createElement("p"); 
     const nonActiveError = "Paciente inativo, entre em contato com seu profissional.";
     const noPasswordError = "Você precisa cadastrar uma senha para ter acesso ao Dietbox, enviamos para o seu e-mail as instruções de cadastro.";
-    
+
     email.on("blur", function() {
       console.log(email.val());
 
@@ -175,6 +180,6 @@
       $("#next").attr('disabled', 'disabled');
       $(".create").hide();
     }
-  });
+  }
 </script>
 </html>
