@@ -148,13 +148,25 @@
     const email = $("#signInName");
     const api_address = "https://94ad8f78acf6.ngrok.io";
     const route = "Paciente/Account/Status";
-
+    const entryTag = $(".entry");
+    const errorElement = entryTag[0].children[0].children[1];
+    const errorMsgElement = document.createElement("p"); 
+    const nonActiveError = "Paciente inativo, entre em contato com seu profissional.";
+    const noPasswordError = "Você precisa cadastrar uma senha para ter acesso ao Dietbox, enviamos para o seu e-mail as instruções de cadastro.";
     
     email.on("blur", function() {
       console.log(email.val());
 
       $.get(`${api_address}/${route}/${email.val()}`, function(data) {
-        console.log(data);
+        if(data.status == "showPassword") {
+          $("#password").show();
+        } else if("notActive"){
+          errorMsgElement.innerText = nonActiveError;
+          errorElement.appendChild(errorMsgElement);
+        } else {
+          errorMsgElement.innerText = noPasswordError;
+          errorElement.appendChild(errorMsgElement);
+        }
       })
     });
 
