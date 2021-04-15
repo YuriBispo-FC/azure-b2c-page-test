@@ -181,6 +181,8 @@
           $("#password").show();
         },
         error: function(data) {
+          console.log(data);
+          
           addError(errorMsgElement, errorElement, data.message);   
           errorElement.style.display = 'block';
           $("#next").attr('disabled', 'disabled');
