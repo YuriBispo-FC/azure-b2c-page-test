@@ -166,6 +166,11 @@
     const nonActiveError = "Paciente inativo, entre em contato com seu profissional.";
     const noPasswordError = "Você precisa cadastrar uma senha para ter acesso ao Dietbox, enviamos para o seu e-mail as instruções de cadastro.";
 
+    email.on("focus"), function()
+    {
+
+    }
+
     email.on("blur", function() {
       $.get(`${api_address}/${route}/${email.val()}`, function(data) {
         console.log(data);
@@ -179,6 +184,8 @@
           console.log(errorElement);
           errorMsgElement.innerText = noPasswordError;
           errorElement.appendChild(errorMsgElement);
+          errorElement.css('display', 'block')
+          $("#next").attr('disabled', 'disabled');
         }
       })
     });
@@ -188,11 +195,21 @@
       $("#forgotPassword").hide();
       $("#next").attr('disabled', 'disabled');
     }
-
-    function makeCssAdjusts() {
-      $(".buttons").css("margin", "0px 0 23px 0 !important");
-      $("#next").css("margin-bottom", "11px");
-    }
   }
+
+  function makeCssAdjusts() {
+    $(".buttons").css("margin", "0px 0 23px 0 !important");
+    $("#next").css("margin-bottom", "11px");
+  }
+
+  function reset()
+  {
+    const entryTag = $(".entry");
+    const errorElement = entryTag[0].children[0].children[1];
+
+    errorElement.removeChild();
+  }
+
+
 </script>
 </html>
