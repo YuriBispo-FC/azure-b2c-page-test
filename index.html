@@ -169,9 +169,9 @@
     email.on("blur", function() {
       $.get(`${api_address}/${route}/${email.val()}`, function(data) {
         console.log(data);
-        if(data.status == "showPassword") {
+        if(data.status === "showPassword") {
           $("#password").show();
-        } else if("notActive"){
+        } else if(data.status === "notActive"){
           errorMsgElement.innerText = nonActiveError;
           errorElement.appendChild(errorMsgElement);
         } else {
