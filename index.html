@@ -145,15 +145,18 @@
   $().ready(function() {
     $(".create").hide();
 
+    let lastInput = '';
+
     const queryParams = window.location.search.split('&');
     const role = queryParams[6].replace("loginRole=", "");
     
     if(role == "Paciente"){
-      startPatientFlow();
+      startPatientFlow(lastInput);
     }
   });
 
-  function startPatientFlow() {
+  function startPatientFlow(lastInput) {
+      
     hideControls();
     makeCssAdjusts();
 
@@ -166,26 +169,26 @@
     const nonActiveError = "Paciente inativo, entre em contato com seu profissional.";
     const noPasswordError = "Você precisa cadastrar uma senha para ter acesso ao Dietbox, enviamos para o seu e-mail as instruções de cadastro.";
 
-    email.on("focus"), function()
-    {
-
-    }
+    email.on("focus", function() {
+      reset();
+    });
 
     email.on("blur", function() {
-      $.get(`${api_address}/${route}/${email.val()}`, function(data) {
-        console.log(data);
-        if(data.status === "showPassword") {
-          $("#password").show();
-        } else if(data.status === "notActive"){
-          errorMsgElement.innerText = nonActiveError;
-          errorElement.appendChild(errorMsgElement);
-        } else {
-          console.log(errorMsgElement);
-          console.log(errorElement);
-          errorMsgElement.innerText = noPasswordError;
-          errorElement.appendChild(errorMsgElement);
+      if(!shouldContinue())
+        return;
+      
+      lastInput = email.val();
+
+      $.get(`${api_address}/${route}/${email.val()}`, function(data, txtStatus, xhr) {
+        console.log(data.status, data.message);
+
+        if(xhr.status !== 200) {
+          addError(errorMsgElement, errorElement, data.message);   
+          
           errorElement.style.display = 'block';
           $("#next").attr('disabled', 'disabled');
+        } else {
+          $("#password").show();
         }
       })
     });
@@ -202,14 +205,23 @@
     $("#next").css("margin-bottom", "11px");
   }
 
-  function reset()
-  {
+  function reset() {
     const entryTag = $(".entry");
     const errorElement = entryTag[0].children[0].children[1];
 
     errorElement.removeChild();
   }
 
+  function shouldContinue() {
+    const email = $("#signInName").val();
 
+    return lastInput.length > 0 && email != lastInput;
+  }
+
+  function addError(errorMsgElement, errorElement, message) {
+    errorMsgElement.innerText = message;
+    errorElement.appendChild(errorMsgElement);
+  }
+  
 </script>
 </html>
