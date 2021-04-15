@@ -144,6 +144,7 @@
 <script>
   $().ready(function() {
     $(".create").hide();
+    makeCssAdjusts();
 
     const queryParams = window.location.search.split('&');
     const role = queryParams[6].replace("loginRole=", "");
@@ -155,7 +156,6 @@
 
   function startPatientFlow() {
     hideControls();
-    makeCssAdjusts();
 
     const email = $("#signInName");
     const api_address = "https://94ad8f78acf6.ngrok.io";
@@ -186,7 +186,7 @@
     }
 
     function makeCssAdjusts() {
-      $("#forgotPassword").css("margin-top", "10px")
+      $("#forgotPassword").css("position", "relative !important")
     }
   }
 </script>
