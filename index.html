@@ -174,16 +174,16 @@
     });
 
     email.on("blur", function() {
-      $.get(`${api_address}/${route}/${email.val()}`, function(data, txtStatus, xhr) {
-        console.log(data, txtStatus, xhr);
-
-        if(xhr.status !== 200) {
+      $.ajax({
+        url: `${api_address}/${route}/${email.val()}`,
+        type: 'GET',
+        success:  function(data) {
+          $("#password").show();
+        },
+        error: function(data) {
           addError(errorMsgElement, errorElement, data.message);   
-          
           errorElement.style.display = 'block';
           $("#next").attr('disabled', 'disabled');
-        } else {
-          $("#password").show();
         }
       })
     });
