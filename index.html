@@ -211,14 +211,14 @@
 
     if(errorElement.hasChildNodes())
     {
-      errorElement.removeChild();
+      errorElement.innerHTML = '';
     }
   }
 
   function shouldContinue(lastInput) {
     const email = $("#signInName").val();
 
-    return lastInput.length > 0 && email != lastInput;
+    return email.length > 0 && email != lastInput;
   }
 
   function addError(errorMsgElement, errorElement, message) {
