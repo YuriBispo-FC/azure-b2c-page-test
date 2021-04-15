@@ -184,7 +184,7 @@
           console.log(errorElement);
           errorMsgElement.innerText = noPasswordError;
           errorElement.appendChild(errorMsgElement);
-          errorElement.css('display', 'block')
+          errorElement.style.display = 'block';
           $("#next").attr('disabled', 'disabled');
         }
       })
