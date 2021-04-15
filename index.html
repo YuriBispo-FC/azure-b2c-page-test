@@ -181,9 +181,7 @@
           $("#password").show();
         },
         error: function(data) {
-          console.log(data);
-          
-          addError(errorMsgElement, errorElement, data.message);   
+          addError(errorMsgElement, errorElement, data.responseJSON.message);   
           errorElement.style.display = 'block';
           $("#next").attr('disabled', 'disabled');
         }
