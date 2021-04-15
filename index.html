@@ -180,12 +180,13 @@
         success:  function(data, txtStatus, xhr) {
           if(xhr.status !== 200)
           {
-            addError(errorMsgElement, errorElement, data.responseJSON.message);   
+            console.log(data);
+            addError(errorMsgElement, errorElement, data.message);   
             errorElement.style.display = 'block';
             $("#next").attr('disabled', 'disabled');  
             return
           }
-          
+
           $("#password").show();
         },
         error: function(data) {
