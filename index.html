@@ -143,8 +143,14 @@
 </body>
 <script>
   $().ready(function() {
+    $(".create").hide();
+
     const queryParams = window.location.search.split('&');
-    console.log(queryParams);
+    const role = queryParams[6].replace("loginRole=");
+    
+    if(role == "Paciente"){
+      startPatientFlow();
+    }
   });
 
   function startPatientFlow() {
@@ -178,7 +184,6 @@
     function hideControls() {
       $("#password").hide();
       $("#next").attr('disabled', 'disabled');
-      $(".create").hide();
     }
   }
 </script>
