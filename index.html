@@ -174,13 +174,8 @@
     });
 
     email.on("blur", function() {
-      if(!shouldContinue(lastInput))
-        return;
-      
-      lastInput = email.val();
-
       $.get(`${api_address}/${route}/${email.val()}`, function(data, txtStatus, xhr) {
-        console.log(data.status, data.message);
+        console.log(data, txtStatus, xhr);
 
         if(xhr.status !== 200) {
           addError(errorMsgElement, errorElement, data.message);   
@@ -213,12 +208,6 @@
     {
       errorElement.innerHTML = '';
     }
-  }
-
-  function shouldContinue(lastInput) {
-    const email = $("#signInName").val();
-
-    return email.length > 0 && email != lastInput;
   }
 
   function addError(errorMsgElement, errorElement, message) {
