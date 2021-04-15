@@ -174,7 +174,7 @@
     });
 
     email.on("blur", function() {
-      if(!shouldContinue())
+      if(!shouldContinue(lastInput))
         return;
       
       lastInput = email.val();
@@ -209,10 +209,13 @@
     const entryTag = $(".entry");
     const errorElement = entryTag[0].children[0].children[1];
 
-    errorElement.removeChild();
+    if(errorElement.hasChildNodes())
+    {
+      errorElement.removeChild();
+    }
   }
 
-  function shouldContinue() {
+  function shouldContinue(lastInput) {
     const email = $("#signInName").val();
 
     return lastInput.length > 0 && email != lastInput;
