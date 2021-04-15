@@ -178,13 +178,13 @@
         url: `${api_address}/${route}/${email.val()}`,
         type: 'GET',
         success:  function(data, txtStatus, xhr) {
-          if(xhr.status !== 200)
+          if(xhr.status === 204)
           {
             console.log(data);
-            addError(errorMsgElement, errorElement, data.message);   
+            addError(errorMsgElement, errorElement, "Email não encontrado.");   
             errorElement.style.display = 'block';
-            $("#next").attr('disabled', 'disabled');  
-            return
+            $("#next").attr('disabled', 'disabled');
+            return;
           }
 
           $("#password").show();
